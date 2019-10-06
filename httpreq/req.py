@@ -5,29 +5,7 @@ import concurrent.futures
 
 API = ""
 
-# def get_json(url) -> json:
-#     """Get a json from url
-    
-#     Arguments:
-#         url {string} -- https url 
-    
-#     Returns:
-#         json or None -- json
-#     """
-#     logging.debug("Url: {}".format(API + url))
-#     conn = http.client.HTTPSConnection(API)
-#     conn.request('GET', url)
-#     response = conn.getresponse()
-#     logging.debug("Status: {}".format(response.status))
-
-#     ret = None
-#     if response.status == http.HTTPStatus.OK:
-#         ret = json.loads(response.read().decode(response.info().get_param('charset') or 'utf-8'))
-
-#     conn.close()
-#     return ret
-
-async def get_json(url) -> json:
+def get_json(url) -> json:
     """Get a json from url
     
     Arguments:
@@ -37,17 +15,39 @@ async def get_json(url) -> json:
         json or None -- json
     """
     logging.debug("Url: {}".format(API + url))
-    with http.client.HTTPSConnection(API) as conn:
-        conn.request('GET', url)
-        response = conn.getresponse()
-        logging.debug("Status: {}".format(response.status))
+    conn = http.client.HTTPSConnection(API)
+    conn.request('GET', url)
+    response = conn.getresponse()
+    logging.debug("Status: {}".format(response.status))
 
-        ret = None
-        if response.status == http.HTTPStatus.OK:
-            ret = json.loads(response.read().decode(response.info().get_param('charset') or 'utf-8'))
+    ret = None
+    if response.status == http.HTTPStatus.OK:
+        ret = json.loads(response.read().decode(response.info().get_param('charset') or 'utf-8'))
 
-        conn.close()
-        return ret
+    conn.close()
+    return ret
+
+# async def get_json(url) -> json:
+#     """Get a json from url
+    
+#     Arguments:
+#         url {string} -- https url 
+    
+#     Returns:
+#         json or None -- json
+#     """
+#     logging.debug("Url: {}".format(API + url))
+#     with http.client.HTTPSConnection(API) as conn:
+#         conn.request('GET', url)
+#         response = conn.getresponse()
+#         logging.debug("Status: {}".format(response.status))
+
+#         ret = None
+#         if response.status == http.HTTPStatus.OK:
+#             ret = json.loads(response.read().decode(response.info().get_param('charset') or 'utf-8'))
+
+#         conn.close()
+#         return ret
 
 def get_image_ref(name, tag) -> str:
     """Get image reference (sha) from a tag's image 

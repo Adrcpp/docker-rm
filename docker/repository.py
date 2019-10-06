@@ -1,5 +1,6 @@
 from httpreq import req
 from docker.tag import Tag
+from time import sleep
 
 class Repository:
     """Represent an image in a docker repository
@@ -19,8 +20,11 @@ class Repository:
         Returns:
             list -- list of Tags object
         """
-        rep = req.get_json("/v2/{}{}".format(self.name, self.TAG_LIST))
-        tags = rep["tags"]
+        # rep = req.get_json("/v2/{}{}".format(self.name, self.TAG_LIST))
+        # tags = rep["tags"]
+
+        sleep(2)
+        tags = ["tag1", "tag2", "tag3", "tag4", "tag5"]
         self.list = []
 
         for tag in tags:

@@ -1,4 +1,5 @@
 from httpreq import req
+from time import sleep
 
 class Tag:
     """Represent an image in a docker repository
@@ -18,8 +19,9 @@ class Tag:
         Returns:
             sha (string) -- sha reference of the tag
         """
-        self.sha = req.get_image_ref(self.name, self.tag)
-      
+        #self.sha = req.get_image_ref(self.name, self.tag)
+        sleep(2)
+        self.sha = "sha:xxx"
         return self.sha
 
     def delete(self):
