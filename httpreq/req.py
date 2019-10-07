@@ -1,7 +1,6 @@
 import http.client
 import json
 import logging
-import concurrent.futures
 
 API = ""
 CREDENTIAL = ""

@@ -2,12 +2,12 @@ import logging
 import argparse
 import configparser
 import httpreq.req
-from docker.catalog import Catalog
-from docker.tag import Tag
-import concurrent.futures
-from docker.repository import Repository
 import time
 import errno
+import concurrent.futures
+from docker.catalog import Catalog
+from docker.tag import Tag
+from docker.repository import Repository
 
 KEEP_LAST = 3
 KEEP = "latest"
@@ -51,7 +51,7 @@ def set_vars_from_conf():
         KEEP_LAST = config.get("vars", "KEEP_LAST")
         KEEP = config.get("vars", "KEEP")
     except configparser.Error as e:
-        print("Error in parsing configure.ini: {}".format(e))
+        logging.error("Error in parsing configure.ini: {}".format(e))
         exit(errno.EINVAL)
 
 
@@ -169,7 +169,6 @@ def async_task(task_list: list, func_name: str):
 
 
 if __name__ == "__main__":
-    import time
     s = time.perf_counter()
     main()
     elapsed = time.perf_counter() - s

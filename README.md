@@ -6,7 +6,7 @@ Originally intended for cleaning image tag's in a Nexus snapshot registry. Keepi
 
 edit configure.ini:
 
-- API        - Your registry URL
+- API        - Your registry URL (only domain name ex: domain.com)
 - CREDENTIAL - Your credential in base64 (you can found it in ~/.docker/config.json)
 - KEEP       - Tag you want to keep (default: latest)
 - KEEP_LAST  - Number of tag you want to keep (default: 3)

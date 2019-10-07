@@ -21,8 +21,6 @@ class Tag:
             sha (string) -- sha reference of the tag
         """
         self.sha = req.get_image_ref(self.name, self.tag)
-        # sleep(2)
-        # self.sha = "sha:xxx"
         return self
 
     def delete(self):
