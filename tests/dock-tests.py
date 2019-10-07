@@ -44,7 +44,7 @@ class TestDockerRegistryManager(unittest.TestCase):
         sha = "sha:0145ds51005gg515e"
         patch.return_value = sha
         tag = Tag('repo1', 'tag1')
-        tag.get_manifest()
+        tag.retrieve_manifest()
 
         self.assertEqual('repo1', tag.name)
         self.assertEqual('tag1', tag.tag)

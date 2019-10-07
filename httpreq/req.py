@@ -4,8 +4,9 @@ import logging
 import concurrent.futures
 
 API = ""
+CREDENTIAL = ""
 
-def get_json(url) -> json:
+def get_json(url : str) -> json:
     """Get a json from url
     
     Arguments:
@@ -27,29 +28,7 @@ def get_json(url) -> json:
     conn.close()
     return ret
 
-# async def get_json(url) -> json:
-#     """Get a json from url
-    
-#     Arguments:
-#         url {string} -- https url 
-    
-#     Returns:
-#         json or None -- json
-#     """
-#     logging.debug("Url: {}".format(API + url))
-#     with http.client.HTTPSConnection(API) as conn:
-#         conn.request('GET', url)
-#         response = conn.getresponse()
-#         logging.debug("Status: {}".format(response.status))
-
-#         ret = None
-#         if response.status == http.HTTPStatus.OK:
-#             ret = json.loads(response.read().decode(response.info().get_param('charset') or 'utf-8'))
-
-#         conn.close()
-#         return ret
-
-def get_image_ref(name, tag) -> str:
+def get_image_ref(name : str, tag : str) -> str:
     """Get image reference (sha) from a tag's image 
     
     Arguments:
@@ -64,7 +43,7 @@ def get_image_ref(name, tag) -> str:
 
     logging.debug("Url: {}".format(API + url))
     conn = http.client.HTTPSConnection(API)
-    conn.request('HEAD', url, headers = {'Accept': 'application/vnd.docker.distribution.manifest.v2+json'})
+    conn.request('HEAD', url, headers= {'Accept': 'application/vnd.docker.distribution.manifest.v2+json'})
     response = conn.getresponse();
 
     logging.debug("Status: {}, Reason: {} ".format(response.status, response.reason))
@@ -77,19 +56,22 @@ def get_image_ref(name, tag) -> str:
 
     return ret
 
-def delete_image(image_name, reference):
+def delete_image(image_name: str, reference: str):
     """Delete image from repository
     
     Arguments:
         image_name {string} -- Docker image name
         reference {string} -- Docker sha reference of a tag's image
     """
-    url = '/v2/{}/manifest/{}'.format(image_name, reference)
+    url = '/v2/{}/manifests/{}'.format(image_name, reference)
     logging.debug("Url: {}, Method: DELETE".format(API + url))
 
     conn = http.client.HTTPSConnection(API)
-    conn.request('DELETE', url)
+
+    headers = {"Authorization": "Basic {}".fomat(CREDENTIAL)}
+
+    conn.request('DELETE', url, headers=headers)
     response = conn.getresponse()
-    logging.info("Status: {}, Reason: {} ".format(response.status, response.reason))
+    logging.info("Status: {}, Reason: {} , {}".format(response.status, response.reason))
 
     conn.close()
