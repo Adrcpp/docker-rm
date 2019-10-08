@@ -1,5 +1,5 @@
-from httpreq import req
-from docker.repository import Repository
+from app.httpreq import req
+from app.docker.repository import Repository
 
 class Catalog:
     """Represent all the image name of a docker registry
@@ -12,7 +12,7 @@ class Catalog:
     CATALOG = "/v2/_catalog"
 
     def __init__(self):
-        pass
+        self.list = []
 
     def get_catalog(self):
         """Retrieve all image name - create a list of Repository object
@@ -22,11 +22,9 @@ class Catalog:
         """
 
         rep = req.get_json(self.CATALOG)
-        repoList = rep["repositories"]
+        repo_list = rep["repositories"]
 
-        self.list = []
-
-        for repo in repoList:
+        for repo in repo_list:
             self.list.append(Repository(repo))
 
         return self.list

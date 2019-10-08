@@ -2,14 +2,14 @@ import unittest
 import json
 import logging
 from unittest.mock import patch
-from httpreq.req import get_json
-from docker.catalog import Catalog
-from docker.repository import Repository
-from docker.tag import Tag
+from app.httpreq.req import get_json
+from app.docker.catalog import Catalog
+from app.docker.repository import Repository
+from app.docker.tag import Tag
 
 class TestDockerRegistryManager(unittest.TestCase):
 
-    @patch('httpreq.req.get_json')
+    @patch('app.httpreq.req.get_json')
     def test_catalog(self, patch):
         # mocking http request
         patch.return_value = {"repositories": ["repo1", "repo2", "repo3"]}
@@ -23,7 +23,7 @@ class TestDockerRegistryManager(unittest.TestCase):
         for index, repo in enumerate(ret):
             self.assertEqual(test_list[index].name, repo.name)
         
-    @patch('httpreq.req.get_json')
+    @patch('app.httpreq.req.get_json')
     def test_repository(self, patch):
         # mocking http request
         patch.return_value = {"name": "repo1", "tags": ["tag1", "tag2", "tag3"]}
@@ -38,7 +38,7 @@ class TestDockerRegistryManager(unittest.TestCase):
             self.assertEqual(test_list[index].name, tag.name)
             self.assertEqual(test_list[index].tag, tag.tag)
 
-    @patch('httpreq.req.get_image_ref')
+    @patch('app.httpreq.req.get_image_ref')
     def test_tag(self, patch):
         # mocking http request
         sha = "sha:0145ds51005gg515e"

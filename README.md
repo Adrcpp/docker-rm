@@ -22,4 +22,4 @@ python docker-rm
   -d, --dry-run         Output what would be deleted from the registry  
   -c, --catalog         Output all repository from the registry <name>  
   -r REPOSITORY, --repository REPOSITORY  
-                        Output all tags for repository <name>   
+  Output all tags for repository <name>   

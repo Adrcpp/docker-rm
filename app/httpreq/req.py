@@ -5,7 +5,7 @@ import logging
 API = ""
 CREDENTIAL = ""
 
-def get_json(url : str) -> json:
+def get_json(url: str) -> json:
     """Get a json from url
     
     Arguments:
@@ -27,7 +27,7 @@ def get_json(url : str) -> json:
     conn.close()
     return ret
 
-def get_image_ref(name : str, tag : str) -> str:
+def get_image_ref(name: str, tag: str) -> str:
     """Get image reference (sha) from a tag's image 
     
     Arguments:
@@ -38,7 +38,7 @@ def get_image_ref(name : str, tag : str) -> str:
         string -- docker sha reference of a tag's image
     """
     logging.debug("Name: {}, Tag: {}".format(name, tag))
-    url = '/v2/{}/manifests/{}'.format(name, tag);
+    url = '/v2/{}/manifests/{}'.format(name, tag)
 
     logging.debug("Url: {}".format(API + url))
     conn = http.client.HTTPSConnection(API)

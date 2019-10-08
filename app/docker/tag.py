@@ -1,5 +1,4 @@
-from httpreq import req
-from time import sleep
+from app.httpreq import req
 import logging
 
 class Tag:

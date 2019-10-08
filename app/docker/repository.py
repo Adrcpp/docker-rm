@@ -1,6 +1,5 @@
-from httpreq import req
-from docker.tag import Tag
-from time import sleep
+from app.httpreq import req
+from app.docker.tag import Tag
 
 class Repository:
     """Represent an image in a docker repository
@@ -13,6 +12,7 @@ class Repository:
 
     def __init__(self, name):
         self.name = name
+        self.list = []
 
     def get_tags(self) -> list: 
         """ Return tags list from a docker repository/image 
@@ -23,11 +23,8 @@ class Repository:
         rep = req.get_json("/v2/{}{}".format(self.name, self.TAG_LIST))
         tags = rep["tags"]
 
-        self.list = []
-
         for tag in tags:
             self.list.append(Tag(self.name, tag))
-
         return self.list
 
     def print(self):
